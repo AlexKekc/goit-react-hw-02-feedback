@@ -12,10 +12,7 @@ export class App extends Component {
   };
 
   optionsOfFeedBack = () => {
-    let optionsArray = [];
-    for (const key in this.state) {
-      optionsArray.push(key);
-    }
+    const optionsArray = [...Object.keys(this.state)];
 
     return optionsArray;
   };
