@@ -11,21 +11,21 @@ export class App extends Component {
     bad: 0,
   };
 
-  feedbackCounter = event => {
-    const feedbackOptionValue = event.target.value.toLowerCase();
+  optionsOfFeedBack = () => {
+    let optionsArray = [];
+    for (const key in this.state) {
+      optionsArray.push(key);
+    }
 
-    this.setState(prevState => {
-      switch (feedbackOptionValue) {
-        case 'good':
-          return { good: prevState.good + 1 };
-        case 'neutral':
-          return { neutral: prevState.neutral + 1 };
-        case 'bad':
-          return { bad: prevState.bad + 1 };
-        default:
-          break;
-      }
-    });
+    return optionsArray;
+  };
+
+  feedbackCounter = event => {
+    const feedbackOptionValue = event.currentTarget.value;
+
+    this.setState(prevState => ({
+      [feedbackOptionValue]: prevState[feedbackOptionValue] + 1,
+    }));
   };
 
   countTotalFeedback = () => {
@@ -47,7 +47,7 @@ export class App extends Component {
       <>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={['Good', 'Neutral', 'Bad']}
+            options={this.optionsOfFeedBack()}
             onLeaveFeedback={this.feedbackCounter}
           />
         </Section>
